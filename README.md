@@ -15,17 +15,17 @@ To make the SVMlight executable (svm_learn and svm_classify) visible to this pro
 
 Assume SVMlight is installed under directory "\~/svmlight/"
 
-* Open file "~/.bashrc" and add a line "export PATH=$PATH:~/svmlight/"
-* Type "source .bashrc"
+* Open file `~/.bashrc` and add a line `export PATH=$PATH:~/svmlight/`
+* Type `source .bashrc`
 
 1.b. Install this program
 This program was written in C, and the package itself includes two pre-compiled executables ("train_main" and "test_main") in the subdirectory "bin", but it's recommended that the users re-compile the source code on their local machines.
 
 To re-compile the source code, go to subdirectory "src" and type "make". The two executable files will be generated.
 
-This program relies on peptides along with their spectra to predict the fragmentation spectrum of a given peptide.  The library file that contains the peptide-spectrum pairs (potential neighbors) for peptide ions of charge [charge] and length [length] can be found under the following directory:
+This program relies on peptides along with their spectra to predict the fragmentation spectrum of a given peptide.  The library file that contains the peptide-spectrum pairs (potential neighbors) for peptide ions of charge `[charge]` and length `[length]` can be found under the following directory:
 
-/library/[charge]/[length]/[length].dat
+`/library/[charge]/[length]/[length].dat`
 
 2. Training the scoring model 
 This program uses the trained SVM model to score the spectral similarity between a target and neighbor peptide. Note that a different model is trained for peptide ions of different length. The package itself includes pre-trained SVM models for each length (/library/[charge]/[length]/model) using the parameters (default) as follows:
@@ -68,42 +68,42 @@ The performance of the prediction accuracy will be robust if thresholds that def
 
 To train an SVM model for peptides of a particular length using different thresholds, use the executable file "train_main", the usage is as follows:
 
-> train_main [length] [library file] [charge] [rho_high] [rho_low] [model file]
+`> train_main [length] [library file] [charge] [rho_high] [rho_low] [model file]`
 
-[length]: the peptide length (7 to 20 for charge 2+ and 12 to 25 for charge 3+)
+`[length]`: the peptide length (7 to 20 for charge 2+ and 12 to 25 for charge 3+)
 
-[library file]: the input file that contains the peptide-spectrum matches for this particular length and charge group.
+`[library file]`: the input file that contains the peptide-spectrum matches for this particular length and charge group.
 
-[charge]: the charge state (2 or 3)
+`[charge]`: the charge state (2 or 3)
 
-[rho_high] [rho_low]: the threshold for defining positive and negative classes
+`[rho_high] [rho_low]`: the threshold for defining positive and negative classes
 
-[model file]: the output file containing the trained SVM model
+`[model file]`: the output file containing the trained SVM model
 
  
 3. Spectra prediction
 
 To generate the predicted spectra of peptide ions of a given length, use the executable file "test_main": 
 
-> test_main [length] [library file] [charge] [K] [model file] [sequence file] [spectra file]
+`> test_main [length] [library file] [charge] [K] [model file] [sequence file] [spectra file]`
 
-[length]: the peptide length (7 to 20 for charge 2+ and 12 to 25 for charge 3+)
+`[length]`: the peptide length (7 to 20 for charge 2+ and 12 to 25 for charge 3+)
 
-[library file]: the input file that contains the peptide-spectrum matches for this particular length and charge group.
+`[library file]`: the input file that contains the peptide-spectrum matches for this particular length and charge group.
 
-[charge]: the charge state (2 or 3)
+`[charge]`: the charge state (2 or 3)
 
-[K]: the number neighbors to be used (e.g. K = 11)
+`[K]`: the number neighbors to be used (e.g. K = 11)
 
-[model file]: the input file containing the trained SVM model 
+`[model file]`: the input file containing the trained SVM model 
 
-[sequence file]: the input file that contains the peptide sequences of length [length]
+`[sequence file]`: the input file that contains the peptide sequences of length [length]
 
-[spectra file]: the output file that contains the predicted spectra along with the peptide sequences
+`[spectra file]`: the output file that contains the predicted spectra along with the peptide sequences
 
 Sample Input:
 
-test_main 25   library/3/25/25.dat   3   11  library/3/25/model  25_3  spectra.msp
+`test_main 25   library/3/25/25.dat   3   11  library/3/25/model  25_3  spectra.msp`
 
 This command line generates predicted spectra in output file "spectra.msp" for peptide ions of length 25 and charge 3+. (see the subdirectory "sample")
 
@@ -115,15 +115,18 @@ Each predicted spectrum is assigned confidence score (between 0 and 1) in the ou
 
 log.txt:
 
+```
 AAAASAISEGQLSSDESGDLTFSLK       0.881302
 AAAHCAHVFTTVSQITAIEAQHLLK       0.906962
 AAAIVIGFLMNSEQTSFTSAFSLVK       0.874060
 AAALQPLPATHAALYHGMALALLSR       0.849274
 AAALSGPWGSPPPPPEQIHSAPGPR       0.902062
 AAAPLAAGALQLLAGSTVLLEAYAR       0.677142
+```
 
 In our paper we used the 80-percentiles of all confidence scores for each length as the threshold:
 
+```
 Charge 2+		Charge 3+
 7	0.8556		12	0.8294
 8	0.7316		13	0.7704
@@ -139,7 +142,7 @@ Charge 2+		Charge 3+
 18	0.8521		23	0.9119
 19	0.8628		24	0.8968
 20	0.8641		25	0.9045
-
+```
 Generally, the higher the confidence score, the more similar the predicted spectra are to their real counterparts. And the user can use other thresholds to achieve an acceptable trade-off between accuracy and coverage.
 
 Contact: Chao Ji
