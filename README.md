@@ -13,7 +13,7 @@ This program uses SVMlight (a fast implementation of Support Vector Machine) as 
 
 To make the SVMlight executable (svm_learn and svm_classify) visible to this program, the PATH environmental variable in Linux needs to be correctly set as follows: 
 
-Assume SVMlight is installed under directory "~/svmlight/"
+Assume SVMlight is installed under directory "\~/svmlight/"
 1\) Open file "~/.bashrc" and add a line "export PATH=$PATH:~/svmlight/"
 2\) Type "source .bashrc"
 
