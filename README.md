@@ -1,3 +1,5 @@
+Click [this](https://github.com/chao-ji/KNN_Peptide_Spectra/blob/master/From%20peptide%20and%20spectrum%20to%20user%20and%20item.ipynb) for an intuitive and graphical explanation for this algorithm.
+
 # KNN_Peptide_Spectra
 An K nearest neighbor algorithm for predicting peptide fragmentation patterns
 
@@ -12,8 +14,8 @@ This program uses SVMlight (a fast implementation of Support Vector Machine) as 
 To make the SVMlight executable (svm_learn and svm_classify) visible to this program, the PATH environmental variable in Linux needs to be correctly set as follows: 
 
 Assume SVMlight is installed under directory "~/svmlight/"
-1) Open file "~/.bashrc" and add a line "export PATH=$PATH:~/svmlight/"
-2) Type "source .bashrc"
+1\) Open file "~/.bashrc" and add a line "export PATH=$PATH:~/svmlight/"
+2\) Type "source .bashrc"
 
 1.b. Install this program
 This program was written in C, and the package itself includes two pre-compiled executables ("train_main" and "test_main") in the subdirectory "bin", but it's recommended that the users re-compile the source code on their local machines.
